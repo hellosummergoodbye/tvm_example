@@ -15,6 +15,10 @@ def main():
     
     deploy_graph, lib, params = nnvm.compiler.build(compute_graph, target='llvm', shape={"x": shape,"y": shape}, dtype="float32")
 
+    with open("ir.txt",'w') as f:
+        
+        f.write(deploy_graph.ir())
+    
     lib.export_library('module.so')
     
     with open("deploy.json", "w") as f:
